@@ -1,6 +1,6 @@
 class Spaceship extends Floater  
 {   
-    private WarpParticle[] warpParticles = new WarpParticle[1000];
+    //private WarpParticle[] warpParticles = new WarpParticle[1000];
     private boolean warping;
   
     public Spaceship() {
@@ -24,9 +24,9 @@ class Spaceship extends Floater
     public void setWarping(boolean in) {
       warping = in;
     }
-    public WarpParticle[] getWarpParticles() {
+    /*public WarpParticle[] getWarpParticles() {
       return warpParticles;
-    }
+    }*/
     
     public void stop() {
       myXspeed = 0;
@@ -36,9 +36,9 @@ class Spaceship extends Floater
     public void warp() {
       warping = true;
       stop();
-      for(int i = 0; i < warpParticles.length; i++) {
+      /*for(int i = 0; i < warpParticles.length; i++) {
         warpParticles[i] = new WarpParticle();
         warpParticles[i].setPos(myCenterX, myCenterY);
-      }
+      }*/
     }
 }
