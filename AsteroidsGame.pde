@@ -2,6 +2,8 @@ private Spaceship spaceship = new Spaceship();
 
 private Star[] stars;
 
+private int warpTime;
+
 void setup() {
   size(1280, 720);
   frameRate(60);
@@ -16,11 +18,12 @@ void draw() {
   if (!spaceship.getWarping()) {
     spaceship.show();
   } else {
-    //WarpParticle[] wps = spaceship.getWarpParticles();
+    warpTime++;
+    WarpParticle[] wps = spaceship.getWarpParticles();
     
     boolean atTarget = true;
     
-    /*for (int i = 0; i < wps.length; i++) {
+    for (int i = 0; i < wps.length; i++) {
       wps[i].setSpeedAndDir();
       wps[i].PointToTarget();
       wps[i].accelerate((double).5);
@@ -28,12 +31,11 @@ void draw() {
       wps[i].show();
       if (!wps[i].atTarget())
         atTarget = false;
-    }*/
+    }
     
-    if (atTarget) {
+    if (atTarget || warpTime >= frameRate * 10) {
       spaceship.setWarping(false);
-      spaceship.myCenterX = mouseX;
-      spaceship.myCenterY = mouseY;
+      spaceship.setPos(wps[0].getTargetX(), wps[0].getTargetY());
     }
   }
   
@@ -61,6 +63,7 @@ public void keyPressed() {
       spaceship.stop();
     }
     if (key == 'h') {
+      warpTime = 0;
       spaceship.warp();
     }
   }
