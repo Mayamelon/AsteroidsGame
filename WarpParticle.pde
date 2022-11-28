@@ -11,8 +11,6 @@ class WarpParticle extends Floater {
   
   public WarpParticle() {
     myColor = 255;
-    myXTarget = mouseX;
-    myYTarget = mouseY;
     
     double speed = (double)(Math.random()*4)+2;
     double angle = (double)(Math.random() * 2 * Math.PI);
@@ -26,11 +24,22 @@ class WarpParticle extends Floater {
     myCenterY = y;
   }
   
+  public double getTargetX() {
+    return myXTarget;
+  }
+  
+  public double getTargetY() {
+    return myYTarget;
+  }
+  
+  public void setTarget(double x, double y) {
+    myXTarget = x;
+    myYTarget = y;
+  }
+  
   public void setSpeedAndDir() {
       myXspeed *= 0.95;
       myYspeed *= 0.95;
-      myXTarget = mouseX;
-      myYTarget = mouseY;
   }
   
   public void PointToTarget() {
