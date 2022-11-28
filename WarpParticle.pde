@@ -6,7 +6,7 @@ class WarpParticle extends Floater {
     fill(myColor);
     stroke(myColor);
     
-    ellipse((float)myCenterX, (float)myCenterY, 2, 2);
+    ellipse((int)myCenterX, (int)myCenterY, 2, 2);
   }
   
   public WarpParticle() {
@@ -49,5 +49,23 @@ class WarpParticle extends Floater {
   public boolean atTarget() {
     return dist((float)myCenterX, (float)myCenterY, (float)myXTarget, (float)myYTarget) <= 10;
   }
+  
+  public void move ()   //move the floater in the current direction of travel
+  {      
+    //change the x and y coordinates by myXspeed and myYspeed       
+    myCenterX += myXspeed;    
+    myCenterY += myYspeed;     
+
+    //wrap around screen    
+    if(myCenterX >width || myCenterX < 0)
+    {     
+      myXspeed *= -1;    
+    }    
+    
+    if(myCenterY > height || myCenterY < 0)
+    {    
+      myYspeed *= -1; 
+    } 
+  } 
   
 }
