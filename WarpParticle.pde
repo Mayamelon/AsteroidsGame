@@ -43,11 +43,11 @@ class WarpParticle extends Floater {
   }
   
   public void PointToTarget() {
-    myPointDirection = 180 * atan2((float)(myYTarget-myCenterY),(float)(myXTarget-myCenterX)) / Math.PI;
+    myPointDirection = 180 * Math.atan2((float)(myYTarget-myCenterY),(float)(myXTarget-myCenterX)) / Math.PI;
   }
     
   public boolean atTarget() {
-    return dist((float)myCenterX, (float)myCenterY, (float)myXTarget, (float)myYTarget) <= 10;
+    return Math.sqrt((Math.pow((float)myCenterX - (float)myXTarget, 2) + Math.pow((float)myCenterY - (float)myYTarget, 2))) <= 10;
   }
   
   public void move ()   //move the floater in the current direction of travel
