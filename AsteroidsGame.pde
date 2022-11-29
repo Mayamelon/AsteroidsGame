@@ -26,7 +26,7 @@ void draw() {
     for (int i = 0; i < wps.length; i++) {
       wps[i].setSpeedAndDir();
       wps[i].pointToTarget();
-      wps[i].accelerate((double).5);
+      wps[i].accelerate(0.5);
       wps[i].move();
       wps[i].show();
       if (!wps[i].atTarget())
