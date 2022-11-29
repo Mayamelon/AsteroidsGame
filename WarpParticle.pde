@@ -42,7 +42,7 @@ class WarpParticle extends Floater {
       myYspeed *= 0.95;
   }
   
-  public void PointToTarget() {
+  public void pointToTarget() {
     myPointDirection = 180 * Math.atan2((float)(myYTarget-myCenterY),(float)(myXTarget-myCenterX)) / Math.PI;
   }
     
