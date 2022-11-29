@@ -20,7 +20,7 @@ void draw() {
     warpTime++;
     WarpParticle[] wps = spaceship.getWarpParticles();
     
-    boolean atTarget = true;
+    boolean allAtTarget = true;
     
     for (int i = 0; i < wps.length; i++) {
       wps[i].setSpeedAndDir();
@@ -29,10 +29,10 @@ void draw() {
       wps[i].move();
       wps[i].show();
       if (!wps[i].atTarget())
-        atTarget = false;
+        allAtTarget = false;
     }
     
-    if (atTarget || warpTime >= frameRate * 10) {
+    if (allAtTarget || warpTime >= frameRate * 10) {
       spaceship.setWarping(false);
       spaceship.setPos(wps[0].getTargetX(), wps[0].getTargetY());
     }
