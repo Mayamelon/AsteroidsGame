@@ -4,6 +4,7 @@ private Star[] stars;
 
 private int warpTime;
 
+
 void setup() {
   size(1280, 720);
   stars = new Star[1000];
