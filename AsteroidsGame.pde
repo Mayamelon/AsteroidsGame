@@ -7,7 +7,7 @@ private int warpTime;
 
 void setup() {
   size(1280, 720);
-  stars = new Star[1000];
+  stars = new Star[500];
   for (int i = 0; i < stars.length; i++) {
     stars[i] = new Star();
   }
