@@ -21,8 +21,8 @@ class Spaceship extends Floater
     public boolean getWarping() {
       return warping;
     }
-    public void setWarping(boolean in) {
-      warping = in;
+    public void setWarping(boolean isWarping) {
+      warping = isWarping;
     }
     public WarpParticle[] getWarpParticles() {
       return warpParticles;
