@@ -2,21 +2,69 @@ private Spaceship spaceship = new Spaceship();
 
 private Star[] stars;
 
+private ArrayList < Asteroid > asteroids = new ArrayList < Asteroid > ();
+
 private int warpTime;
+
+
+private boolean wPressed = false, sPressed = false, aPressed = false, dPressed = false, spacePressed = false, hPressed = false;
 
 
 void setup() {
   size(1280, 720);
-  stars = new Star[500];
+  stars = new Star[1000];
   for (int i = 0; i < stars.length; i++) {
     stars[i] = new Star();
   }
+  
+  for (int i = 0; i < 50; i++) {
+    asteroids.add(new Asteroid(spaceship.getX(), spaceship.getY()));
+  }
+  
 }
 void draw() {
+  
+  
+  
+  if (!spaceship.getWarping()) {
+    if (wPressed) {
+      spaceship.accelerate(0.2);
+    }
+    if (sPressed) {
+      spaceship.accelerate(-0.1);
+    }
+    if (aPressed) {
+      spaceship.turn(-5);
+    }
+    if (dPressed) {
+      spaceship.turn(5);
+    }
+    if (spacePressed) {
+      spaceship.stop();
+    }
+    if (hPressed) {
+      warpTime = 0;
+      spaceship.warp();
+    }
+  }
+  
+  
   background(0);
   spaceship.move();
   if (!spaceship.getWarping()) {
+    
+    for (int i = 0; i < asteroids.size(); i++) {
+      asteroids.get(i).move();
+      asteroids.get(i).show();
+      
+      if (asteroids.get(i).isColliding(spaceship.getX(), spaceship.getY(), 15)) {
+        asteroids.remove(asteroids.get(i));
+      }
+      
+    }
+    
     spaceship.show();
+    
   } else {
     warpTime++;
     WarpParticle[] wps = spaceship.getWarpParticles();
@@ -36,6 +84,10 @@ void draw() {
     if (allAtTarget || warpTime >= frameRate * 10) {
       spaceship.setWarping(false);
       spaceship.setPos(wps[0].getTargetX(), wps[0].getTargetY());
+      
+      for (int i = 0; i < asteroids.size(); i++) {
+        asteroids.set(i, new Asteroid(spaceship.getX(), spaceship.getY()));
+      }
     }
   }
   
@@ -46,26 +98,44 @@ void draw() {
 }
 
 public void keyPressed() {
-  if (!spaceship.getWarping()) {
     if (key == 'w') {
-      spaceship.accelerate(1.5);
+      wPressed = true;
     }
     if (key == 's') {
-      spaceship.accelerate(-1);
+      sPressed = true;
     }
     if (key == 'a') {
-      spaceship.turn(-15);
+      aPressed = true;
     }
     if (key == 'd') {
-      spaceship.turn(15);
+      dPressed = true;
     }
     if (key == ' ') {
-      spaceship.stop();
+      spacePressed = true;
     }
     if (key == 'h') {
-      warpTime = 0;
-      spaceship.warp();
+      hPressed = true;
     }
-  }
 
+}
+
+public void keyReleased() {
+    if (key == 'w') {
+      wPressed = false;
+    }
+    if (key == 's') {
+      sPressed = false;
+    }
+    if (key == 'a') {
+      aPressed = false;
+    }
+    if (key == 'd') {
+      dPressed = false;
+    }
+    if (key == ' ') {
+      spacePressed = false;
+    }
+    if (key == 'h') {
+      hPressed = false;
+    }
 }
