@@ -1,6 +1,6 @@
 class Spaceship extends Floater  
 {   
-    private WarpParticle[] warpParticles = new WarpParticle[1000];
+    private WarpParticle[] warpParticles = new WarpParticle[500];
     private boolean warping;
   
     public Spaceship() {
@@ -9,6 +9,7 @@ class Spaceship extends Floater
       yCorners = new int[]{-8, 0, 8, 0};
       
       myColor = 255;
+      myStroke = 255;
       myCenterX = 640;
       myCenterY = 360;
       myXspeed = 0;
@@ -19,13 +20,13 @@ class Spaceship extends Floater
     }
     
     public boolean getWarping() {
-      return (warping);
+      return warping;
     }
-    public void setWarping(boolean isWarping) {
-      warping = isWarping;
+    public void setWarping(boolean input) {
+      warping = input;
     }
     public WarpParticle[] getWarpParticles() {
-      return (warpParticles);
+      return warpParticles;
     }
     
     public void stop() {
