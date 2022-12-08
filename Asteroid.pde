@@ -4,7 +4,7 @@ class Asteroid extends Floater {
   
   
   public Asteroid(double xAvoid, double yAvoid) {
-    corners = (int)(Math.random()*8)+16;
+    corners = (int)(Math.random()*10)+20;
     
     xCorners = new int[corners];
     yCorners = new int[corners];
@@ -35,13 +35,40 @@ class Asteroid extends Floater {
     
   }
   
+  public Asteroid(Asteroid parent) {
+    corners = parent.getNumCorners() * 3 / 4;
+    
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    
+    for (int i = 0; i < corners; i++) {
+      double distance = (Math.random()*corners/3) + 2*corners/3;
+      
+      xCorners[i] = (int)(distance * Math.cos(2*Math.PI*i/corners));
+      yCorners[i] = (int)(distance * Math.sin(2*Math.PI*i/corners));
+      
+    }
+    
+    turnRate = Math.random()*11 - 5;
+    myXspeed = Math.random()*5 - 2;
+    myYspeed = Math.random()*5 - 2;
+    
+    myCenterX = parent.getX();
+    myCenterY = parent.getY();
+    
+    myColor = 0;
+    myStroke = 255;
+    
+  }
+  
   public void move() {
     super.move();
     
     turn(turnRate);
   }
   
-  public boolean isColliding(double x, double y, double distance) {
-    return Math.sqrt(Math.pow(x - myCenterX, 2) + Math.pow(y - myCenterY, 2)) < distance + 2*corners/3;
+  public int getNumCorners() {
+    return corners;
   }
+  
 }
