@@ -32,20 +32,20 @@ class Floater //Do NOT modify the Floater class! Make changes in the Spaceship c
     //wrap around screen    
     if(myCenterX >width)
     {     
-      myCenterX = 0;    
+      myCenterX = myCenterX - width;    
     }    
     else if (myCenterX<0)
     {     
-      myCenterX = width;    
+      myCenterX = width - myCenterX;    
     }    
     if(myCenterY >height)
     {    
-      myCenterY = 0;    
+      myCenterY = myCenterY - height;    
     } 
     
     else if (myCenterY < 0)
     {     
-      myCenterY = height;    
+      myCenterY = height - myCenterY;    
     }   
   }   
   public void show ()  //Draws the floater at the current position  
@@ -80,5 +80,21 @@ class Floater //Do NOT modify the Floater class! Make changes in the Spaceship c
   }
   public double getY() {
     return myCenterY;
+  }
+  
+  public double getXspeed() {
+    return myXspeed;
+  }
+  public double getYspeed() {
+    return myYspeed;
+  }
+  
+  public double getPointDirection() {
+    return myPointDirection;
+  }
+  
+  
+  public boolean isColliding(double x, double y, double distance) {
+    return Math.sqrt(Math.pow(x - myCenterX, 2) + Math.pow(y - myCenterY, 2)) < distance + 2*corners/3;
   }
 } 
