@@ -4,6 +4,8 @@ private Star[] stars;
 
 private ArrayList < Asteroid > asteroids = new ArrayList < Asteroid > ();
 
+private ArrayList < Bullet > bullets = new ArrayList < Bullet > ();
+
 private int warpTime;
 
 
@@ -17,13 +19,13 @@ void setup() {
     stars[i] = new Star();
   }
   
-  for (int i = 0; i < 50; i++) {
+  for (int i = 0; i < 40; i++) {
     asteroids.add(new Asteroid(spaceship.getX(), spaceship.getY()));
   }
   
 }
 void draw() {
-  
+  background(0);
   
   
   if (!spaceship.getWarping()) {
@@ -40,7 +42,8 @@ void draw() {
       spaceship.turn(5);
     }
     if (spacePressed) {
-      spaceship.stop();
+      if (frameCount % 5 == 0)
+        bullets.add(new Bullet(spaceship.getX(), spaceship.getY(), spaceship.getXspeed() + Math.cos(spaceship.getPointDirection() * Math.PI / 180) * 25, spaceship.getYspeed() + Math.sin(spaceship.getPointDirection() * Math.PI / 180) * 25));
     }
     if (hPressed) {
       warpTime = 0;
@@ -48,9 +51,9 @@ void draw() {
     }
   }
   
+    spaceship.move();
+
   
-  background(0);
-  spaceship.move();
   if (!spaceship.getWarping()) {
     
     for (int i = 0; i < asteroids.size(); i++) {
@@ -60,6 +63,32 @@ void draw() {
       if (asteroids.get(i).isColliding(spaceship.getX(), spaceship.getY(), 15)) {
         asteroids.remove(asteroids.get(i));
       }
+      
+    }
+    
+    for (int i = bullets.size() - 1; i >= 0; i--) {
+      
+      if (bullets.get(i).getFramesShown() > 30) {
+        bullets.remove(i);
+        break;
+      }
+      
+      bullets.get(i).move();
+      bullets.get(i).show();
+      
+      
+      for (int j = asteroids.size() - 1; j >= 0; j--) {
+        if (bullets.get(i).isColliding(asteroids.get(j).getX(), asteroids.get(j).getY(), 15)) {
+          bullets.remove(i);
+          if (asteroids.get(j).getNumCorners() >= 16)
+            splitAsteroid(asteroids.get(j));
+          asteroids.remove(j);
+          break;
+        }
+      }
+      
+      
+      
       
     }
     
@@ -138,4 +167,9 @@ public void keyReleased() {
     if (key == 'h') {
       hPressed = false;
     }
+}
+
+public void splitAsteroid(Asteroid asteroid) {
+  asteroids.add(new Asteroid(asteroid));
+  asteroids.add(new Asteroid(asteroid));
 }
