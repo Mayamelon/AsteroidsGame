@@ -49,7 +49,6 @@ class Spaceship extends Floater
 
   public void updateShield() {
     if (shielding) {
-      System.out.println(shieldStrength);
       if (shieldStrength > 0) {
         shieldStrength--;
       } else {
